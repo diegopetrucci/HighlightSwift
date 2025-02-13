@@ -44,6 +44,11 @@ extension CodeText: View {
                     await highlightText(colorScheme: newColorScheme)
                 }
             }
+            .onChange(of: text) { _ in
+                highlightTask = Task {
+                    await highlightText()
+                }
+            }
     }
 }
 
