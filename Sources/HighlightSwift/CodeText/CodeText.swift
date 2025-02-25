@@ -11,6 +11,7 @@ public struct CodeText {
     internal var success: ((HighlightResult) -> Void)?
     internal var failure: ((Error) -> Void)?
     internal var result: ((Result<HighlightResult, Error>) -> Void)?
+    internal let shouldHighlight: Bool
 
     @State internal var highlightTask: Task<Void, Never>?
     @State internal var highlightResult: HighlightResult?
@@ -22,9 +23,10 @@ public struct CodeText {
     /// - Parameters:
     ///   - text: Plain text code to be syntax highlighted and displayed.
     ///   - result: Existing highlight result to display instead of highlighting the text on appear.
-    public init(_ text: String, result: HighlightResult? = nil) {
+    public init(_ text: String, result: HighlightResult? = nil, shouldHighlight: Bool = true) {
         self.text = text
         self._highlightResult = .init(initialValue: result)
+        self.shouldHighlight = shouldHighlight
     }
     
     internal var attributedText: AttributedString {

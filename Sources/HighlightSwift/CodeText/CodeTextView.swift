@@ -16,9 +16,12 @@ extension CodeText: View {
                 }
             }
             .onAppear {
-                guard highlightResult == nil else {
-                    return
-                }
+                guard highlightResult == nil
+                else { return }
+                
+                guard shouldHighlight
+                else { return }
+                
                 highlightTask = Task {
                     await highlightText()
                 }
